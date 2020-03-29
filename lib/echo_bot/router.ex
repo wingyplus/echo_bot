@@ -11,18 +11,26 @@ defmodule EchoBot.Router do
   end
 
   defp validate_signature(conn) do
-    get_req_header(conn, "x-line-signature")
-    |> List.first()
-    |> LineBot.Signature.validate()
+    {:ok, body, conn} = read_body(conn)
+
+    valid =
+      get_req_header(conn, "x-line-signature")
+      |> List.first()
+      |> LineBot.Signature.validate(
+        body,
+        "_"
+      )
+
+    {body, valid}
   end
 
   # Handle events in case valid signature.
-  defp handle_events(conn, :ok) do
+  defp handle_events(conn, {_body, :ok}) do
     send_resp(conn, 200, Jason.encode!(%{}))
   end
 
   # Handle events in case invalid signature.
-  defp handle_events(conn, :invalid_signature) do
+  defp handle_events(conn, {_, :invalid_signature}) do
     send_resp(conn, 400, Jason.encode!(%{"message" => "invalid signature"}))
   end
 
