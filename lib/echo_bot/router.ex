@@ -8,12 +8,14 @@ defmodule EchoBot.Router do
   plug(:dispatch)
 
   post "/callback" do
-    handle_events(conn, validate_signature(conn))
-  end
-
-  defp validate_signature(conn) do
     {:ok, body, conn} = read_body(conn)
 
+    {body, conn}
+    |> validate_signature()
+    |> handle_events()
+  end
+
+  defp validate_signature({body, conn}) do
     valid =
       get_req_header(conn, "x-line-signature")
       |> List.first()
@@ -22,16 +24,16 @@ defmodule EchoBot.Router do
         @line_secret_key
       )
 
-    {body, valid}
+    {body, conn, valid}
   end
 
   # Handle events in case valid signature.
-  defp handle_events(conn, {_body, :ok}) do
+  defp handle_events({_body, conn, :ok}) do
     send_resp(conn, 200, Jason.encode!(%{}))
   end
 
   # Handle events in case invalid signature.
-  defp handle_events(conn, {_, :invalid_signature}) do
+  defp handle_events({_, conn, :invalid_signature}) do
     send_resp(conn, 400, Jason.encode!(%{"message" => "invalid signature"}))
   end
 
