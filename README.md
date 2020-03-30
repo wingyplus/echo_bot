@@ -1,7 +1,7 @@
 # EchoBot
 
-EchoBot application example from [line-bot-sdk-go](https://github.com/line/line-bot-sdk-go/blob/master/examples/echo_bot/server.go) port to
-Elixir.
+EchoBot is LINE chatbot application example from [line-bot-sdk-go](https://github.com/line/line-bot-sdk-go/blob/master/examples/echo_bot/server.go) in
+Elixir version.
 
 ## Experiment Goals
 
