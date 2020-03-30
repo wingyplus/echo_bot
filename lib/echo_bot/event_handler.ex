@@ -8,17 +8,14 @@ defmodule EchoBot.EventHandler do
     |> IO.inspect()
   end
 
-  # Replies all of messages.
-  #
-  # Returns message that replies.
-  defp replies([], _), do: []
-
-  defp replies([message | messages], line_access_token) do
-    [reply(message, line_access_token)] ++ replies(messages, line_access_token)
+  defp replies(messages, line_access_token) do
+    messages
+    |> Stream.map(fn message -> reply(message, line_access_token) end)
+    |> Enum.to_list()
   end
 
   defp reply({:no_reply, _, _}, _) do
-    []
+    {:ok, ""}
   end
 
   defp reply({:reply, reply_token, message}, line_access_token) do
