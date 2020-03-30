@@ -29,11 +29,11 @@ defmodule EchoBot.Router do
         @line_secret_key
       )
 
-    {body, conn, valid}
+    {valid, body, conn}
   end
 
   # Handle events in case valid signature.
-  defp handle_req({body, conn, :ok}) do
+  defp handle_req({:ok, body, conn}) do
     Jason.decode!(body)
     |> Map.get("events")
     |> EchoBot.EventHandler.handle_events(@line_access_token)
@@ -42,7 +42,7 @@ defmodule EchoBot.Router do
   end
 
   # Handle events in case invalid signature.
-  defp handle_req({_, conn, :invalid_signature}) do
+  defp handle_req({:invalid_signature, _, conn}) do
     send_resp(conn, 400, Jason.encode!(%{"message" => "invalid signature"}))
   end
 end
