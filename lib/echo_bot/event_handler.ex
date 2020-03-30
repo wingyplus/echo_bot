@@ -18,6 +18,14 @@ defmodule EchoBot.EventHandler do
     {:ok, ""}
   end
 
+  defp reply({:reply, "00000000000000000000000000000000", _}, _) do
+    {:ok, ""}
+  end
+
+  defp reply({:reply, "ffffffffffffffffffffffffffffffff", _}, _) do
+    {:ok, ""}
+  end
+
   defp reply({:reply, reply_token, message}, line_access_token) do
     req = %{
       "replyToken" => reply_token,
