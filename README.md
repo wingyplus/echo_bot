@@ -1,21 +1,11 @@
 # EchoBot
 
-**TODO: Add description**
+EchoBot application example from [line-bot-sdk-go](https://github.com/line/line-bot-sdk-go/blob/master/examples/echo_bot/server.go) port to
+Elixir.
 
-## Installation
+## Experiment Goals
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `echo_bot` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:echo_bot, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/echo_bot](https://hexdocs.pm/echo_bot).
+1. I want to know how hard to implements LINE webhook api on a new language (new language means no sdk from LINE official repository).
+2. Learn Elixir, so much fun!!
+3. Can we make it as a data ingession? This idea come from [Broadway](https://hexdocs.pm/broadway/Broadway.html). I didn't try it yet.
 
