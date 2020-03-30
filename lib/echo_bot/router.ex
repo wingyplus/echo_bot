@@ -1,4 +1,6 @@
 defmodule EchoBot.Router do
+  @line_secret_key Application.fetch_env!(:echo_bot, :line_secret_key)
+
   use Plug.Router
 
   plug(Plug.Logger)
@@ -6,7 +8,6 @@ defmodule EchoBot.Router do
   plug(:dispatch)
 
   post "/callback" do
-    # TODO(wingyplus): validate signature
     handle_events(conn, validate_signature(conn))
   end
 
@@ -18,7 +19,7 @@ defmodule EchoBot.Router do
       |> List.first()
       |> LineBot.Signature.validate(
         body,
-        "_"
+        @line_secret_key
       )
 
     {body, valid}

@@ -23,3 +23,7 @@ erl_crash.dump
 echo_bot-*.tar
 
 .elixir_ls
+
+# config
+config/dev.exs
+config/test.exs
