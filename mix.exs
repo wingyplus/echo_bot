@@ -24,7 +24,8 @@ defmodule EchoBot.MixProject do
     [
       {:plug_cowboy, "~> 2.0"},
       {:jason, "~> 1.2"},
-      {:httpoison, "~> 1.6"}
+      {:httpoison, "~> 1.6"},
+      {:dialyxir, "~> 1.0", only: [:dev], runtime: false}
     ]
   end
 end
